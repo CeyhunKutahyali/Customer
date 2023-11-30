@@ -31,6 +31,9 @@
             panel1 = new Panel();
             dataGridView1 = new DataGridView();
             panel2 = new Panel();
+            btnGetAllCustomers = new Button();
+            btnSearch = new Button();
+            btnCustomerDelete = new Button();
             btnCustomerEdit = new Button();
             btnCustomerAdd = new Button();
             richTextBox1 = new RichTextBox();
@@ -45,7 +48,6 @@
             txtSurname = new TextBox();
             txtName = new TextBox();
             txtId = new TextBox();
-            btnCustomerDelete = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
@@ -76,6 +78,8 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(btnGetAllCustomers);
+            panel2.Controls.Add(btnSearch);
             panel2.Controls.Add(btnCustomerDelete);
             panel2.Controls.Add(btnCustomerEdit);
             panel2.Controls.Add(btnCustomerAdd);
@@ -96,9 +100,39 @@
             panel2.Size = new Size(829, 223);
             panel2.TabIndex = 1;
             // 
+            // btnGetAllCustomers
+            // 
+            btnGetAllCustomers.Location = new Point(614, 179);
+            btnGetAllCustomers.Name = "btnGetAllCustomers";
+            btnGetAllCustomers.Size = new Size(193, 29);
+            btnGetAllCustomers.TabIndex = 17;
+            btnGetAllCustomers.Text = "Tüm Müşterileri Getir";
+            btnGetAllCustomers.UseVisualStyleBackColor = true;
+            btnGetAllCustomers.Click += btnGetAllCustomers_Click;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(614, 138);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(193, 29);
+            btnSearch.TabIndex = 16;
+            btnSearch.Text = "Müşteri Ara";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // btnCustomerDelete
+            // 
+            btnCustomerDelete.Location = new Point(614, 96);
+            btnCustomerDelete.Name = "btnCustomerDelete";
+            btnCustomerDelete.Size = new Size(193, 29);
+            btnCustomerDelete.TabIndex = 15;
+            btnCustomerDelete.Text = "Müşteri Sil";
+            btnCustomerDelete.UseVisualStyleBackColor = true;
+            btnCustomerDelete.Click += btnCustomerDelete_Click;
+            // 
             // btnCustomerEdit
             // 
-            btnCustomerEdit.Location = new Point(614, 67);
+            btnCustomerEdit.Location = new Point(614, 55);
             btnCustomerEdit.Name = "btnCustomerEdit";
             btnCustomerEdit.Size = new Size(193, 29);
             btnCustomerEdit.TabIndex = 14;
@@ -108,7 +142,7 @@
             // 
             // btnCustomerAdd
             // 
-            btnCustomerAdd.Location = new Point(614, 26);
+            btnCustomerAdd.Location = new Point(614, 14);
             btnCustomerAdd.Name = "btnCustomerAdd";
             btnCustomerAdd.Size = new Size(193, 29);
             btnCustomerAdd.TabIndex = 1;
@@ -216,16 +250,6 @@
             txtId.Size = new Size(153, 27);
             txtId.TabIndex = 0;
             // 
-            // btnCustomerDelete
-            // 
-            btnCustomerDelete.Location = new Point(614, 108);
-            btnCustomerDelete.Name = "btnCustomerDelete";
-            btnCustomerDelete.Size = new Size(193, 29);
-            btnCustomerDelete.TabIndex = 15;
-            btnCustomerDelete.Text = "Müşteri Sil";
-            btnCustomerDelete.UseVisualStyleBackColor = true;
-            btnCustomerDelete.Click += btnCustomerDelete_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -265,5 +289,7 @@
         private Button btnCustomerAdd;
         private Button btnCustomerEdit;
         private Button btnCustomerDelete;
+        private Button btnSearch;
+        private Button btnGetAllCustomers;
     }
 }

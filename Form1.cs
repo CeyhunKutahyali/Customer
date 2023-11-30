@@ -12,7 +12,7 @@ namespace Customer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ShowData();
+            //ShowData();
         }
 
         private void ShowData()
@@ -103,6 +103,7 @@ namespace Customer
                 }
             }
             ShowData();
+            CustomerInformationClear();
         }
 
         private void btnCustomerEdit_Click(object sender, EventArgs e)
@@ -117,7 +118,7 @@ namespace Customer
                 command.Parameters.AddWithValue("@p4", checkBox1.Checked);
                 command.Parameters.AddWithValue("@p5", richTextBox1.Text);
                 command.Parameters.AddWithValue("@p6", txtId.Text);
-                if (Convert.ToInt32(txtMonthlyIncome.Text) <= 10000 && checkBox1.Checked == true)
+                if (Convert.ToInt32(txtMonthlyIncome.Text) <= 10000 || checkBox1.Checked == true)
                 {
                     checkBox1.Checked = false;
                     MessageBox.Show("Aylýk Gelir Yeterli Olmadýðýndan Krediye Uygunluk Verilemedi");
@@ -139,9 +140,9 @@ namespace Customer
                 {
                     ConnectionString.connection().Close();
                 }
-                ShowData();
-                CustomerInformationClear();
             }
+            ShowData();
+            CustomerInformationClear();
         }
 
         private void btnCustomerDelete_Click(object sender, EventArgs e)
@@ -150,11 +151,11 @@ namespace Customer
             {
                 string query = "UPDATE Customer SET Deleted = 1 WHERE CustomerId = @p1";
                 SqlCommand command = new SqlCommand(query, ConnectionString.connection());
-                
+
                 command.Parameters.AddWithValue("@p1", txtId.Text);
                 command.ExecuteNonQuery();
 
-                MessageBox.Show("Müþteri Silme Ýþlemi Baþarýlý.","Bilgi",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Müþteri Silme Ýþlemi Baþarýlý.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -166,9 +167,40 @@ namespace Customer
                 {
                     ConnectionString.connection().Close();
                 }
-                ShowData();
-                CustomerInformationClear();
             }
+            ShowData();
+            CustomerInformationClear();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string query = "SELECT * FROM Customer WHERE CustomerName LIKE '" + txtName.Text + "%'" + " AND CustomerSurname LIKE '" + txtSurname.Text + "%'" + " AND CustomerAddress LIKE '" + richTextBox1.Text + "%'" + " AND MonthlyIncome = '" + txtMonthlyIncome.Text + "'";
+                SqlDataAdapter da = new SqlDataAdapter(query, ConnectionString.connection());
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    dataGridView1.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Arama Ýþlemi Sýrasýnda Bir Hata Oluþtu" + ex.Message);
+            }
+            finally
+            {
+                if (ConnectionString.connection != null)
+                {
+                    ConnectionString.connection().Close();
+                }
+            }
+        }
+
+        private void btnGetAllCustomers_Click(object sender, EventArgs e)
+        {
+            ShowData();
         }
     }
 }
